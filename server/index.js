@@ -1,17 +1,25 @@
 const express = require('express');
-const path = require('path');
+const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;
+const app = express();
 
-// app
+// dummy data
 const books = [
   { name: "nice", author: "me" },
   { name: "dope", author: "also me" },
 ]
 
-const app = express();
+// CRUD
+// always place body-parser before CRUD to enable the middleware
+// urlencoded extracts form element data and adds to req.body
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send('She works!')
+});
+
+app.post('/', (req, res) => {
+  console.log(nice);
 })
 
 
