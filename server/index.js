@@ -10,9 +10,8 @@ const books = [
 
 const app = express();
 
-app.get('/test', (req, res) => {
+app.get('/', (req, res) => {
   res.send('She works!')
-  res.json(books)
 })
 
 
