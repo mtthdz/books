@@ -12,16 +12,16 @@ const books = [
 // CRUD
 // always place body-parser before CRUD to enable the middleware
 // urlencoded extracts form element data and adds to req.body
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.send('She works!')
 });
 
-app.post('/', (req, res) => {
-  console.log(nice);
+app.get('/api/books', (req, res) => {
+  console.log('calling for all books');
+  res.json(books);
 })
-
 
 // run
 app.listen(port);
