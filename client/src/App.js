@@ -1,38 +1,46 @@
+import React, { Component } from 'react';
 import './App.css';
-import { useState } from 'react';
-import axios from 'axios';
-
-// axios method
-// const getServerData = () => {
-//   axios.get('/api/books')
-//   .then((res) => {
-//     console.log(res.data);
-//     // 2. store data into state via hooks
-//   });
-// }
-
-// pull data from server via fetch
-async function getServerData() {
-  const response = await fetch('/api/books');
-  return await response.json();
-}
-
-// event handler
-// calls server data pull fn
-// "stores" server data
-const storeData = () => {
-  getServerData()
-  .then(data => console.log(data));
-}
+import { getServerData, postServerData } from './services/serverCrud';
 
 
-function App() {
-  return (
-    <div className="App">
-      <button onClick={storeData}>Send Request</button>
-      {/* 3. display state here */}
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      books: []
+    }
+  }
+
+  // event handlers
+  // calls server data pull fn
+  printBooks = () => {
+    getServerData()
+      .then(data => console.log(data));
+  }
+
+  onFormChange = () => {
+    console.log('nice');
+  }
+
+  addBook = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <button onClick={printBooks}>Send Request</button>
+
+        <form>
+          <label>Book Name</label>
+          <input type="text" onChange={onFormChange} />
+          <button type="submit" onClick={addBook} />
+        </form>
+      </div>
+    )
+  };
 }
 
 export default App;
