@@ -8,7 +8,8 @@ class App extends Component {
     super();
 
     this.state = {
-      books: []
+      bookName: '',
+      bookList: []
     }
   }
 
@@ -16,27 +17,33 @@ class App extends Component {
   // calls server data pull fn
   printBooks = () => {
     getServerData()
-      .then(data => console.log(data));
+    .then(data => console.log(data));
   }
 
-  onFormChange = () => {
-    console.log('nice');
+  onFormChange = (event) => {
+    this.setState({
+      bookName: event.target.value,
+    })
   }
 
-  addBook = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
+  addBook = (event) => {
+    event.preventDefault();
+    postServerData(this.state.bookName);
+    this.setState({
+      bookName: ''
+    });
+    
   }
 
   render() {
     return (
       <div className="App">
-        <button onClick={printBooks}>Send Request</button>
+        <button onClick={this.printBooks}>Send Request</button>
 
         <form>
           <label>Book Name</label>
-          <input type="text" onChange={onFormChange} />
-          <button type="submit" onClick={addBook} />
+          <input type="text" onChange={this.onFormChange} />
+          <button type="submit" onClick={this.addBook} />
         </form>
       </div>
     )
